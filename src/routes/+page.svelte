@@ -43,10 +43,11 @@ async function subscribe (event){
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    width: 40vw;
+    width: 30vw;
     height: 35vh;
     margin: 0 0 1rem 0;
     padding: 2rem;
-    border: rgb(48, 60, 66) 0.5px solid;
+    border: rgb(9, 160, 236) 0.5px solid;
+    border-radius: 15px;
   }
 </style>
