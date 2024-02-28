@@ -1,5 +1,7 @@
 <script>
 
+  export let data
+
 async function subscribe (event){
   const form = event.target
   const data = new FormData(form)
@@ -10,13 +12,6 @@ async function subscribe (event){
   })
 }
 
-
-
-async function getPosts() {
-  const response = await fetch('api/posts');
-  const posts = await response.json();
-  return posts;
-}
 
 </script>
 
@@ -31,22 +26,14 @@ async function getPosts() {
 </div>
 
 <h1>Posts</h1>
-
-{#await getPosts()}
-  <p>loading...</p>
-{:then posts}
-<p>Mostrando {posts.length} Posts</p>
-  {#each posts as {slug, title}}
-  <ul>
-    <li>
-      <a href="/posts/{slug}">{title}</a>
-    </li>
-  </ul>
-  {/each}
-{:catch error}
-  <p>{error}</p>
-{/await}
-
+<p>Mostrando {data.posts.length} Posts.</p>
+{#each data.posts as post }
+ <ul>
+  <li>
+    <a href="/posts/{post.slug}">{post.title}</a>
+  </li>
+ </ul> 
+{/each}
 
 <style>
   .container {
