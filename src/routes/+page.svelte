@@ -4,7 +4,7 @@ async function subscribe (event){
   const form = event.target
   const data = new FormData(form)
   
-  await fetch ('/api/newsletter', {
+  await fetch ('api/newsletter', {
     method: 'POST',
     body: data
   })
@@ -35,9 +35,13 @@ async function getPosts() {
 {#await getPosts()}
   <p>loading...</p>
 {:then posts}
-<p>Mostrando {posts.length}</p>
-  {#each posts as post}
-    <p>{post.title}</p>
+<p>Mostrando {posts.length} Posts</p>
+  {#each posts as {slug, title}}
+  <ul>
+    <li>
+      <a href="/posts/{slug}">{title}</a>
+    </li>
+  </ul>
   {/each}
 {:catch error}
   <p>{error}</p>
@@ -50,7 +54,7 @@ async function getPosts() {
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    width: 30vw;
+    width: 40vw;
     height: 35vh;
     margin: 0 0 1rem 0;
     padding: 2rem;
