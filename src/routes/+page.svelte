@@ -1,6 +1,8 @@
 <script>
 
-  export let data
+  export let data;
+
+  $: ({ posts } = data);
 
 async function subscribe (event){
   const form = event.target
@@ -26,11 +28,11 @@ async function subscribe (event){
 </div>
 
 <h1>Posts</h1>
-<p>Mostrando {data.posts.length} Posts.</p>
-{#each data.posts as post }
+<p>Mostrando {posts.length} Posts.</p>
+{#each posts as {slug, title} }
  <ul>
   <li>
-    <a href="/posts/{post.slug}">{post.title}</a>
+    <a href="/posts/{slug}">{title}</a>
   </li>
  </ul> 
 {/each}
