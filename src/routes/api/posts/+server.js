@@ -2,17 +2,19 @@
 
 import { json } from '@sveltejs/kit';
 import db from '$lib/Database';
-export async function GET(event) {
+export async function GET({url}) {
 
-	console.log(event); // metodo para ver en terminal los datos desde node.js
+	const limit = Number(url.searchParams.get('limit') ?? 30);
+    const order =  url.searchParams.get('order') ?? 'asc';
 
 	const posts = await db.post.findMany({
-			take: Math.round(Math.random() * 30)   
-		});
+		orderBy: {
+			id: order },
+		    take: limit
+	});
 
-		event.setHeaders({
-			'Cache-Control': 'max-age=60',
-		})
+	// http://localhost:5173/api/posts?limit=4&order=desc
+	// http://localhost:5173/api/posts?limit=4&order=asc
 		
 	return json(posts)
 }
